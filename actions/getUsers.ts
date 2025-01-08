@@ -1,6 +1,7 @@
-import prisma from "@/lib/prismadb";
+"use server";
 
-import getSession from "./getSession";
+import prisma from "@/lib/prismadb";
+import getSession from "@/actions/getSession";
 
 export default async function getUsers() {
   const session = await getSession();
