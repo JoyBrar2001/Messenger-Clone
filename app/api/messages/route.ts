@@ -15,7 +15,7 @@ export async function POST(request: Request) {
 
     const { message, image, conversationId } = body;
 
-    if (!message || !conversationId) {
+    if (!conversationId) {
       return new NextResponse("Incomplete Params", { status: 400 });
     }
 

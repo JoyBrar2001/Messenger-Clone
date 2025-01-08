@@ -10,8 +10,10 @@ interface IParams {
 };
 
 export default async function ConversationIdPage({ params }: { params: IParams }) {
-  const conversation = await getConversationById(params.conversationId);
-  const messages = await getMessages(params.conversationId);
+  const { conversationId } = await Promise.resolve(params);
+    
+  const conversation = await getConversationById(conversationId);
+  const messages = await getMessages(conversationId);
 
   if (!conversation) {
     return (
