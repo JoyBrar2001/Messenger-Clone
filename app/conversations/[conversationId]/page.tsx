@@ -26,12 +26,12 @@ export default async function ConversationIdPage({ params }: { params: IParams }
   }
 
   return (
-    <div className="lg:pl-80 h-full">
-      <div className="min-h-screen h-full flex flex-col">
-        <Header conversation={conversation} />
-        <div className="flex-1">
-          <Body initialMessages={messages} />
-        </div>
+    <div className="lg:pl-80 h-screen flex flex-col">
+      <Header conversation={conversation} />
+      <div className="flex-1 overflow-y-auto">
+        <Body initialMessages={messages} />
+      </div>
+      <div className="shrink-0">
         <Form />
       </div>
     </div>

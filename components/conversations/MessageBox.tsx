@@ -53,7 +53,7 @@ export default function MessageBox({
           data.image ? "rounded-md p-0" : "rounded-full py-2 px-3"
         )}>
           {data.image ? (
-            <Image 
+            <Image
               src={data.image}
               height={288}
               width={288}
@@ -61,11 +61,17 @@ export default function MessageBox({
               className="object-cover cursor-pointer hover:scale-110 transition translate"
             />
           ) : (
-            <p>
+            <p className="text-base">
               {data.body}
             </p>
           )}
         </div>
+
+        {isLast && isOwn && seenList.length > 0 && (
+          <div className="text-xs font-light text-gray-500">
+            {`Seen by ${seenList}`}
+          </div>
+        )}
       </div>
     </div>
   );
