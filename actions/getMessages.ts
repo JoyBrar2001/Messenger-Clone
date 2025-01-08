@@ -21,6 +21,6 @@ export default async function getMessages(conversationId: string) {
   } catch (error) {
     console.log("Error in getting messages : ", error);
 
-    return null;
+    return [];
   }
 }

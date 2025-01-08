@@ -11,7 +11,7 @@ interface IParams {
 
 export default async function ConversationIdPage({ params }: { params: IParams }) {
   const { conversationId } = await Promise.resolve(params);
-    
+
   const conversation = await getConversationById(conversationId);
   const messages = await getMessages(conversationId);
 
@@ -30,7 +30,7 @@ export default async function ConversationIdPage({ params }: { params: IParams }
       <div className="min-h-screen h-full flex flex-col">
         <Header conversation={conversation} />
         <div className="flex-1">
-          <Body />
+          <Body initialMessages={messages} />
         </div>
         <Form />
       </div>
