@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 import getCurrentUser from "@/actions/getCurrentUser";
 import prisma from "@/lib/prismadb";
@@ -9,11 +9,11 @@ interface IParams {
 };
 
 export async function DELETE(
-  request: Request,
-  { params }: { params: IParams }
+  request: NextRequest,
 ) {
   try {
-    const { conversationId } = await Promise.resolve(params);
+    const pathname = request.nextUrl.pathname.split("/");
+    const conversationId = pathname[pathname.length - 2];
 
     if (!conversationId) {
       return new NextResponse("Conversation ID is required", { status: 400 });
@@ -52,14 +52,14 @@ export async function DELETE(
     // }
 
     existingConversation.users.forEach((user) => {
-      if(user.email){
+      if (user.email) {
         pusherServer.trigger(user.email, "conversation:remove", existingConversation);
       }
     });
 
     return NextResponse.json(deletedConversation);
   } catch (error: any) {
-    console.error("Error message in delete chat route : ", error.stack);
+    console.error("Error message in delete chat route : ", error);
 
     return new NextResponse("Internal Server Error", { status: 500 });
   }
