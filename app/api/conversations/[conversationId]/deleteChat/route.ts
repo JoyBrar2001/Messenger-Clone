@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 
 import getCurrentUser from "@/actions/getCurrentUser";
 import prisma from "@/lib/prismadb";
+import { pusherServer } from "@/lib/pusher";
 
 interface IParams {
   conversationId: string;
@@ -46,11 +47,17 @@ export async function DELETE(
       },
     });
 
-    if (deletedConversation.count === 0) {
-      return new NextResponse("No conversation found to delete", { status: 404 });
-    }
+    // if (deletedConversation.count === 0) {
+    //   return new NextResponse("No conversation found to delete", { status: 404 });
+    // }
 
-    return NextResponse.json({ success: true });
+    existingConversation.users.forEach((user) => {
+      if(user.email){
+        pusherServer.trigger(user.email, "conversation:remove", existingConversation);
+      }
+    });
+
+    return NextResponse.json(deletedConversation);
   } catch (error: any) {
     console.error("Error message in delete chat route : ", error.stack);
 
