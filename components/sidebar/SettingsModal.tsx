@@ -9,7 +9,7 @@ import { CldUploadButton } from "next-cloudinary";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 
 import { User } from "@prisma/client";
-import Modal from "@/components/Modal";
+import Modal from "@/components/modals/Modal";
 import Input from "@/components/inputs/Input";
 import Button from "@/components/Button";
 

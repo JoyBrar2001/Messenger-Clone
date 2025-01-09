@@ -8,8 +8,8 @@ import { Dialog, DialogPanel, Transition, TransitionChild } from "@headlessui/re
 import { Conversation, User } from "@prisma/client";
 import useOtherUser from "@/hooks/useOtherUser";
 import Avatar from "@/components/Avatar";
-import Modal from "@/components/Modal";
-import ConfirmModal from "../ConfirmModal";
+import ConfirmModal from "@/components/modals/ConfirmModal";
+import AvatarGroup from "@/components/AvatarGroup";
 
 interface ProfileDrawerProps {
   data: Conversation & {
@@ -49,11 +49,6 @@ export default function ProfileDrawer({
         isOpen={confirmOpen}
         onClose={() => setConfirmOpen(false)}
       />
-      {/* <Modal isOpen={confirmOpen} onClose={() => setConfirmOpen(false)}>
-        <div className="bg-white p-5">
-          <p>Hello Modal!</p>
-        </div>
-      </Modal> */}
 
       <Transition show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-50" onClose={onClose}>
@@ -101,7 +96,11 @@ export default function ProfileDrawer({
                       <div className="relative mt-6 flex-1 px-4 sm:px-6">
                         <div className="flex flex-col items-center">
                           <div className="mb-2">
-                            <Avatar user={otherUser} />
+                            {data.isGroup ? (
+                              <AvatarGroup users={data.users} />
+                            ) : (
+                              <Avatar user={otherUser} />
+                            )}
                           </div>
 
                           <h1>{title}</h1>
@@ -123,6 +122,31 @@ export default function ProfileDrawer({
 
                           <div className="w-full px-5 sm:px-0 sm:pt-0">
                             <dl className="space-y-8 px-4 sm:space-y-6 sm:px-6">
+                              {data.isGroup && (
+                                <div>
+                                  <dt className="text-sm font-medium text-gray-500 sm:w-40 sm:flex-shrink-0">
+                                    Members
+                                  </dt>
+
+                                  {data.users.map((user) => (
+                                    <dd className="mt-4 text-sm text-gray-900 sm:col-span-2 flex items-center gap-2">
+                                      <div>
+                                        <Avatar user={user} />
+                                      </div>
+
+                                      <div className="flex flex-col">
+                                        <p className="text-sm text-gray-900">
+                                          {user.name}
+                                        </p>
+                                        <p className="text-xs text-gray-800">
+                                          {user.email}
+                                        </p>
+                                      </div>
+                                    </dd>
+                                  ))}
+                                </div>
+                              )}
+
                               {!data.isGroup && (
                                 <div>
                                   <dt className="text-sm font-medium text-gray-500 sm:w-40 sm:flex-shrink-0">

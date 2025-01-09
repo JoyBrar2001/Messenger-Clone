@@ -7,7 +7,7 @@ import { User } from "@prisma/client";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import axios from "axios";
 import toast from "react-hot-toast";
-import Modal from "@/components/Modal";
+import Modal from "@/components/modals/Modal";
 import Input from "@/components/inputs/Input";
 import Select from "@/components/inputs/Select";
 import Button from "@/components/Button";

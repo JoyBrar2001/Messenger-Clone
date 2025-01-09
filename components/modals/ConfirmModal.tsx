@@ -9,7 +9,7 @@ import { FiAlertTriangle } from "react-icons/fi";
 import { DialogTitle } from "@headlessui/react";
 
 import Button from "@/components/Button";
-import Modal from "@/components/Modal";
+import Modal from "@/components/modals/Modal";
 import useConversation from "@/hooks/useConversation";
 
 interface ConfirmModalProps {

@@ -1,13 +1,15 @@
 "use client";
 
-import useOtherUser from "@/hooks/useOtherUser";
-import { FullConversationType } from "@/types";
-import clsx from "clsx";
+import { useCallback, useMemo } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { useCallback, useMemo } from "react";
-import Avatar from "@/components/Avatar";
 import { format } from "date-fns";
+import clsx from "clsx";
+
+import AvatarGroup from "@/components/AvatarGroup";
+import Avatar from "@/components/Avatar";
+import useOtherUser from "@/hooks/useOtherUser";
+import { FullConversationType } from "@/types";
 
 interface ConversationBoxProps {
   data: FullConversationType;
@@ -70,7 +72,11 @@ export default function ConversationBox({
         selected ? "bg-neutral-50" : "bg-white"
       )}
     >
-      <Avatar user={otherUser} />
+      {data.isGroup ? (
+        <AvatarGroup users={data.users} />
+      ) : (
+        <Avatar user={otherUser} />
+      )}
 
       <div className="min-w-0 flex-1 flex flex-col">
         <div className="focus:outline-none">

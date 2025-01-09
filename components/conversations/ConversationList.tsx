@@ -9,7 +9,7 @@ import { MdOutlineGroupAdd } from "react-icons/md";
 import { FullConversationType } from "@/types";
 import useConversation from "@/hooks/useConversation";
 import ConversationBox from "@/components/conversations/ConversationBox";
-import GroupChatModal from "@/components/conversations/GroupChatModal";
+import GroupChatModal from "@/components/modals/GroupChatModal";
 
 interface ConversationListProps {
   initialItems: FullConversationType[];
