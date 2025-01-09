@@ -129,7 +129,10 @@ export default function ProfileDrawer({
                                   </dt>
 
                                   {data.users.map((user) => (
-                                    <dd className="mt-4 text-sm text-gray-900 sm:col-span-2 flex items-center gap-2">
+                                    <dd
+                                      key={user.id}
+                                      className="mt-4 text-sm text-gray-900 sm:col-span-2 flex items-center gap-2"
+                                    >
                                       <div>
                                         <Avatar user={user} />
                                       </div>
